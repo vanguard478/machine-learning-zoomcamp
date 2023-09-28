@@ -1,0 +1,14 @@
+{
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "python.formatting.provider": "none",
+    "python.linting.pylintArgs": [
+        "--rcfile=/home/vanguard/ubuntu20p04/home/vanguard/internship/dev/code/machine-learning-zoomcamp/pylintrc.txt"
+    ],
+    "[python]": {
+        "editor.formatOnSaveMode": "file",
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "eeyore.yapf"
+      }
+    
+}
