@@ -95,24 +95,15 @@ for i in pairs:
 """
 mean_price = df.price.mean()
 print(f'the mean price is {mean_price}')
-df.price = (df.price > mean_price).astype(int)
-
-# Create a scaler object
-# scaler = MinMaxScaler()
-# # scaler = StandardScaler()
-
-# # Use the scaler to normalize the 'A' column and assign back to the DataFrame
-# df['year'] = scaler.fit_transform(df[['year']])
-# df['engine_hp'] = scaler.fit_transform(df[['engine_hp']])
-# df['engine_cylinders'] = scaler.fit_transform(df[['engine_cylinders']])
-# df['highway_mpg'] = scaler.fit_transform(df[['highway_mpg']])
+df['above_average'] = (df.price > mean_price).astype(int)
+del df['price']
 """
 ### Split the data
 
 * Split your data in train/val/test sets with 60%/20%/20% distribution.
 * Use Scikit-Learn for that (the `train_test_split` function) and set the seed 
 to `42`.
-* Make sure that the target value (`price`) is not in your dataframe.
+* Make sure that the target value (`above_average`) is not in your dataframe.
         
 """
 
@@ -173,7 +164,7 @@ print(f'the numerical cols are {numerical}')
 
 ## is eninge_cylinder also categorical ,only 9 unique value and the data is not continuous??
 def cal_mutual_info(series: pd.Series):
-  return mutual_info_score(series, df_train.price)
+  return mutual_info_score(series, df_train.above_average)
 
 
 # notice that we are passing the function name in apply method without any arguments, the arguments are all the filtered columns from df[cols]
@@ -200,9 +191,9 @@ def prepare_data(df_in: pd.DataFrame, required_features_in: list,
                  dv_args: DictVectorizer, data_type: str):
   data_df = df_in.copy()
   req_feature = required_features_in.copy()
-  y = data_df[req_feature].price
-  del data_df['price']
-  req_feature.remove('price')
+  y = data_df[req_feature].above_average
+  del data_df['above_average']
+  req_feature.remove('above_average')
   df_dict = data_df[req_feature].to_dict(orient='records')
   if data_type == 'train':
     return dv_args.fit_transform(df_dict), y
@@ -406,6 +397,16 @@ df_train, df_val = train_test_split(df_train_full,
 df_train = df_train.reset_index(drop=True)
 df_val = df_val.reset_index(drop=True)
 df_test = df_test.reset_index(drop=True)
+
+superset = df_train.columns.tolist()
+
+categorical = [
+    'make',
+    'model',
+    'transmission_type',
+    'vehicle_style',
+]
+numerical = [col for col in superset if col not in categorical]
 
 
 def prepare_regression_data(df_train_arg, df_val_arg, df_test_arg,
