@@ -7,7 +7,7 @@ from sklearn.linear_model import LogisticRegression, Ridge
 from sklearn.metrics import accuracy_score, mean_squared_error, mutual_info_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-
+from collections import defaultdict
 from IPython.display import display
 
 os.chdir(Path(__file__).parent)
@@ -132,8 +132,8 @@ df_val = df_val.reset_index(drop=True)
 df_test = df_test.reset_index(drop=True)
 
 print(
-    f'the length of train set is {len(df_train)} , val set is {len(df_val)} and test set is {len(df_test)}'
-)
+    f'the length of train set is {len(df_train)} , val set is {len(df_val)} and\
+      test set is {len(df_test)}')
 
 df_train.head()
 """
@@ -173,14 +173,16 @@ print(f'the numerical cols are {numerical}')
 
 ## is eninge_cylinder also categorical ,only 9 unique value and the data is not continuous??
 def cal_mutual_info(series: pd.Series):
-  return mutual_info_score(series, df_train_full.price)
+  return mutual_info_score(series, df_train.price)
 
 
 # notice that we are passing the function name in apply method without any arguments, the arguments are all the filtered columns from df[cols]
-mutual_info = df_train_full[categorical].apply(cal_mutual_info).round(2)
+mutual_info = df_train[categorical].apply(cal_mutual_info).round(2)
 
 mutual_info.sort_values(ascending=False)
-print(mutual_info)
+print(
+    f'the mutual info between above_avg binary col and the respective categorical var are: \n{mutual_info}'
+)
 """
 ### Question 4
 
@@ -192,7 +194,6 @@ print(mutual_info)
 * Calculate the accuracy on the validation dataset and round it to 2 decimal digits.
 
 """
-### One hot encoding
 
 
 def prepare_data(df_in: pd.DataFrame, required_features_in: list,
@@ -208,15 +209,6 @@ def prepare_data(df_in: pd.DataFrame, required_features_in: list,
   else:
     return dv_args.transform(df_dict), y
 
-
-# categorical1 = categorical.copy()
-# categorical1.remove('model')
-# train_dict = df_train[categorical1 + numerical].to_dict(orient='records')
-# X_train =dv.fit_transform(train_dict)
-# # print(f'the feature names are {dv.get_feature_names_out()} ')
-# val_dict = df_val[categorical1 + numerical].to_dict(orient='records')
-# X_val = dv.transform(val_dict)
-# print(f'the shape of X_train is {X_train.shape} and X_val is {X_val.shape}')
 
 model = LogisticRegression(solver='liblinear',
                            C=10,
@@ -248,8 +240,9 @@ global_accuracy = accuracy_score(y_val, df_pred['pred_label'])
 # accuracy = correct_predictions / total_predictions
 
 # Print the rounded accuracy
-print(round(global_accuracy, 2))
-
+print(
+    f'The accuracy of logistic regression model is {round(global_accuracy, 2)}')
+""" Debugging code for Feature Exploration of 'model' column
 # from sklearn.feature_extraction import DictVectorizer
 # dv = DictVectorizer(sparse=False)
 
@@ -283,7 +276,7 @@ print(round(global_accuracy, 2))
 # plt.xlabel('Total Count of Individual Models')
 # plt.ylabel('Number of datapoints')
 """
-### Question 5 
+""" Question 5 
 
 * Let's find the least useful feature using the *feature elimination* technique.
 * Train a model with all these features (using the same parameters as in Q4).
@@ -303,7 +296,6 @@ the accuracy difference without transmission_type is -0.6702%
 the accuracy difference without city_mpg is 0.7149%
 
 """
-from collections import defaultdict
 
 evaluation_features = ['year', 'engine_hp', 'transmission_type', 'city_mpg']
 accuracy_diff = defaultdict(float)
@@ -355,26 +347,34 @@ Which of these alphas leads to the best RMSE on the validation set?
 - 1
 - 10
 
-wo sparse martix, no convergence and intial results are as below    
-for alpha 0 the rmse is 0.207
-for alpha 0.01 the rmse is 0.207
-for alpha 0.1 the rmse is 0.207
-for alpha 1 the rmse is 0.207
-for alpha 10 the rmse is 0.207
+without sparse martix, and no scaling: gives ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+for alpha 0 the rmse is 0.487
+for alpha 0.01 the rmse is 0.487
+for alpha 0.1 the rmse is 0.487
+for alpha 1 the rmse is 0.487
+for alpha 10 the rmse is 0.487
 
-with sparse matrix and standard scaler 
-for alpha 0 the rmse is 0.229
-for alpha 0.01 the rmse is 0.222
-for alpha 0.1 the rmse is 0.214 ***** ANSWER
-for alpha 1 the rmse is 0.23
-for alpha 10 the rmse is 0.32
+without sparse matrix and standard scaler: ConvergenceWarning observed in lower alpha values
+for alpha 0 the rmse is 0.224
+for alpha 0.01 the rmse is 0.224
+for alpha 0.1 the rmse is 0.224
+for alpha 1 the rmse is 0.234
+for alpha 10 the rmse is 0.321
 
-with sparse matrix and no scaling 
+with sparse martix, and no scaling: no convergence error observed
 for alpha 0 the rmse is 0.255
 for alpha 0.01 the rmse is 0.255
 for alpha 0.1 the rmse is 0.255
 for alpha 1 the rmse is 0.258
 for alpha 10 the rmse is 0.336
+
+with sparse matrix and standard scaler: no convergence error observed
+for alpha 0 the rmse is 0.229
+for alpha 0.01 the rmse is 0.222
+for alpha 0.1 the rmse is 0.214
+for alpha 1 the rmse is 0.23
+for alpha 10 the rmse is 0.32
+
 
 """
 
@@ -422,14 +422,14 @@ def prepare_regression_data(df_train_arg, df_val_arg, df_test_arg,
   del df_val1['price']
   del df_test1['price']
   required_features1.remove('price')
-  numerical_cols_df = [
-      col for col in df_train1.columns if df_train1[col].dtype != 'object'
-  ]
-  scaler = StandardScaler()
-  for col in numerical_cols_df:
-    df_train1[col] = scaler.fit_transform(df_train1[col].values.reshape(-1, 1))
-    df_val1[col] = scaler.transform(df_val1[col].values.reshape(-1, 1))
-    df_test1[col] = scaler.transform(df_test1[col].values.reshape(-1, 1))
+  # numerical_cols_df = [
+  #     col for col in df_train1.columns if df_train1[col].dtype != 'object'
+  # ]
+  # scaler = StandardScaler()
+  # for col in numerical_cols_df:
+  #   df_train1[col] = scaler.fit_transform(df_train1[col].values.reshape(-1, 1))
+  #   df_val1[col] = scaler.transform(df_val1[col].values.reshape(-1, 1))
+  #   df_test1[col] = scaler.transform(df_test1[col].values.reshape(-1, 1))
 
   dv_reg = DictVectorizer(sparse=True)
   train_dict = df_train1[required_features1].to_dict(orient='records')
