@@ -1,0 +1,4 @@
+Python-3.10.13/
+*.tar.xz
+!homework/model1.bin
+!homework/dv.bin

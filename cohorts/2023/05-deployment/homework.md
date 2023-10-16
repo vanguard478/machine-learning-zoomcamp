@@ -13,12 +13,15 @@ Select the option that's closest to your solution.
 * Install Pipenv
 * What's the version of pipenv you installed?
 * Use `--version` to find out
-
+<!-- pipenv, version 2022.4.8 -->
 
 ## Question 2
 
 * Use Pipenv to install Scikit-Learn version 1.3.1
 * What's the first hash for scikit-learn you get in Pipfile.lock?
+
+<!-- sha256:0c275a06c5190c5ce00af0acbb61c06374087949f643ef32d355ece12c4db043 -->
+<!-- sha256:0c275a06c5190c5ce00af0acbb61c06374087949f643ef32d355ece12c4db043 -->
 
 > **Note**: you should create an empty folder for homework
 and do it there. 
@@ -73,7 +76,7 @@ What's the probability that this client will get a credit?
 * 0.392
 * 0.652
 * 0.902
-
+<!-- Probability of churn: 0.902 -->
 If you're getting errors when unpickling the files, check their checksum:
 
 ```bash
@@ -103,7 +106,7 @@ What's the probability that this client will get a credit?
 * 0.440
 * 0.645
 * 0.845
-
+<!-- {'churn': False, 'churn_probability': 0.13968947052356817} -->
 
 ## Docker
 
@@ -139,7 +142,7 @@ So what's the size of this base image?
 * 147 MB
 * 374 MB
 * 574 MB
-
+<!-- svizor/zoomcamp-model   3.10.12-slim              08266c8f0c4b   2 days ago      147MB -->
 You can get this information when running `docker images` - it'll be in the "SIZE" column.
 
 
@@ -182,7 +185,7 @@ What's the probability that this client will get a credit now?
 * 0.730
 * 0.968
 
-
+<!-- {'churn': True, 'churn_probability': 0.726936946355423} -->
 ## Submit the results
 
 - Submit your results here: https://forms.gle/gfruq6FGoLass3Ff9
