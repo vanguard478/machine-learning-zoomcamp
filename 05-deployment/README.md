@@ -24,6 +24,9 @@ Did you take notes? You can share them here (or in each unit separately)
 * [Notes from froukje](https://github.com/froukje/ml-zoomcamp/blob/main/week5/lecture/Lecture_5_deploying_ml_models.ipynb)
 * [WSL + Docker notes](https://github.com/MemoonaTahira/MLZoomcamp2022/blob/main/Notes/Week_5-flask_and_docker_for_deployment/readme.md)
 * [Notes from Hareesh Tummala](https://github.com/tummala-hareesh/ml_zoomcamp_ht/blob/main/notes/week-5-notes.md)
+* [Notes about Docker](https://github.com/shayansm2/eng-notebook/tree/main/docker)
+* [Notes about Deployment, Pipenv, Flask, Docker by Oscar Garcia](https://github.com/ozkary/machine-learning-engineering/tree/main/05-deployment)
+* [Notebook with commands for pipenv, flask, gunicorn, and Docker](https://github.com/javier-cp6/ml-zoomcamp/blob/main/05-deployment/05-train-churn-model.ipynb)
 * Add your notes here
 
 ### Deployment tutorials
