@@ -29,7 +29,7 @@ For a project, you repository/folder should contain the following:
 * Data
   * You should either commit the dataset you used or have clear instructions how to download the dataset
 * Notebook (suggested name - `notebook.ipynb`) with
-  * Data preparation and data clearning
+  * Data preparation and data cleaning
   * EDA, feature importance analysis
   * Model selection process and parameter tuning
 * Script `train.py` (suggested name)
@@ -37,7 +37,7 @@ For a project, you repository/folder should contain the following:
   * Saving it to a file (e.g. pickle) or saving it with specialized software (BentoML)
 * Script `predict.py` (suggested name)
   * Loading the model
-  * Serving it via a web serice (with Flask or specialized sofware - BentoML, KServe, etc)
+  * Serving it via a web service (with Flask or specialized software - BentoML, KServe, etc)
 * Files with dependencies
   * `Pipenv` and `Pipenv.lock` if you use Pipenv
   * or equivalents: conda environment file, requirements.txt or pyproject.toml
@@ -49,10 +49,11 @@ For a project, you repository/folder should contain the following:
 
 ## Peer reviewing
 
-To evaluate the projects, we'll use peer reviewing. This is a great opportunity for you to learn from each other.
-
-* To get points for your project, your need to evaluate 3 projects of your peers
-* You get 3 extra points for each evaluation
+> [!IMPORTANT]  
+> To evaluate the projects, we'll use peer reviewing. This is a great opportunity for you to learn from each other.
+> * To get points for your project, you need to evaluate 3 projects of your peers
+> * You get 3 extra points for each evaluation
+> * If you don't evaluate your peers, you fail the project
 
 Tip: you can use https://nbviewer.org/ to render notebooks if GitHub doesn't work
 
@@ -76,7 +77,7 @@ The project will be evaluated using these criteria:
 
 ## Cheating and plagiarism
 
-Plagiarism in any form is not allowed. Examples of plagiarism
+Plagiarism in any form is not allowed. Examples of plagiarism:
 
 * Taking somebody's else notebooks and projects (in full or partly) and using it for the capstone project
 * Re-using your own projects (in full or partly) from other courses and bootcamps
@@ -108,6 +109,12 @@ Violating any of this will result in 0 points for this project.
 > give 0 points to the respective criterium. E.g. if you see an error in Dockerfile,
 > then you give 0 points to the "containerization" dimension.
 
+**Q**: Should I include a project title, and what happens if I leave the README file empty?
+
+> It's highly recommended to create a new repository for your project (not inside an existing repo) with a meaningful title, such as
+> "Car Price Prediction" or "Heart Risk Prediction" and including as many details as possible in the README file. ChatGPT can assist you with this. Doing so will not only make it easier to showcase your project for potential job opportunities but also have it featured on the [Projects Gallery App](#projects-gallery).
+> If you leave the README file empty or with minimal details, there may be point deductions as per the [Evaluation Criteria](#evaluation-criteria).
+
 ## Resources
 
 ### Datasets
@@ -119,7 +126,7 @@ Violating any of this will result in 0 points for this project.
 * https://data.europa.eu/en
 * https://www.openml.org/search?type=data
 * https://www.tensorflow.org/datasets/catalog/overview
-* [Soocer data](https://github.com/statsbomb/open-data)
+* [Soccer data](https://github.com/statsbomb/open-data)
 * https://newzealand.ai/public-data-sets
 * [OECD database](https://stats.oecd.org/index.aspx?lang=en)
 * [deeplake](https://datasets.activeloop.ai/docs/ml/datasets/)
@@ -130,6 +137,13 @@ Violating any of this will result in 0 points for this project.
 Explore a collection of projects completed by members of our community. The projects cover a wide range of topics and utilize different tools and techniques. Feel free to delve into any project and see how others have tackled real-world problems with data, structured their code, and presented their findings. It's a great resource to learn and get ideas for your own projects.
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://datatalksclub-projects.streamlit.app/)
+
+### Zoomcamp 2023
+
+* [Midterm project](../cohorts/2023/projects.md#midterm-project)
+* [Capstone 1](../cohorts/2023/projects.md#capstone-1)
+* [Capstone 2](../cohorts/2023/projects.md#capstone-2)
+
 
 ### Zoomcamp 2022
 
